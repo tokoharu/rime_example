@@ -4,3 +4,4 @@
 use_plugin('wikify')
 use_plugin('htmlify_full')
 use_plugin('markdownify_full')
+use_plugin('judge_system.aoj') # for packing example

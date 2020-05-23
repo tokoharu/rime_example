@@ -20,4 +20,3 @@ rm */AOJCONF
 # echo 0.001 > Z/eps.txt 
 
 cd ..
-zip -r packed_example.zip packed_example
