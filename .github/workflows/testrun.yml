@@ -20,9 +20,6 @@ jobs:
     - uses: actions/checkout@v2
       with:
         submodules: "true"
-    - name: check
-      run: |
-        ls ./rime
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M%S')"
@@ -33,7 +30,6 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
         pip install ./rime
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
@@ -45,8 +41,8 @@ jobs:
     - name: markdownify_full
       run: |
         source "${HOME}/.sdkman/bin/sdkman-init.sh"
-        python rime/rime.py markdownify_full 
-        python rime/rime.py clean
+        rime markdownify_full 
+        rime clean
     - uses: actions/upload-artifact@v2
       if: always()
       with:
