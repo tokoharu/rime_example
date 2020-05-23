@@ -1,0 +1,62 @@
+# example work-flow for GitHub Actions
+
+name: testrun
+
+on:
+  push:
+    branches: [ master]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: check
+      run: |
+        ls
+        ls ./rime
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M%S')"
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        pip install .
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Set up Kotlin
+      run: |
+        curl -sL https://get.sdkman.io | bash
+        source "${HOME}/.sdkman/bin/sdkman-init.sh"
+        sdk install kotlin
+    - name: markdownify_full
+      run: |
+        source "${HOME}/.sdkman/bin/sdkman-init.sh"
+        python rime/rime.py markdownify_full 
+        python rime/rime.py clean
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: summary.${{ steps.date.outputs.date }}.md
+        path: summary.md
+    - name: pack_for_aoj
+      if: always()
+      run: |
+        ./pack_example_for_aoj.sh
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: packed_example.${{ steps.date.outputs.date }}
+        path: packed_example
