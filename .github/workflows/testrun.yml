@@ -22,7 +22,6 @@ jobs:
         submodules: "true"
     - name: check
       run: |
-        ls
         ls ./rime
     - name: Get current date
       id: date
