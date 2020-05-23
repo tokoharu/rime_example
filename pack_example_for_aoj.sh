@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rime pack
+python rime/rime.py pack # or "rime pack"
 
 if [ ! -d packed_example ]
 then
