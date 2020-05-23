@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install ./rime
+        pip install git+https://github.com/icpc-jag/rime
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Set up Kotlin
