@@ -15,3 +15,14 @@ Artifactとして、次のものを生成します。
 
 なお、これらを生成するためにrimeの `markdownify_full`コマンドおよび `pack`コマンドを用いています。
 詳細は `.github/workflows/testrun.yml` および `pack_example_for_aoj.sh` を確認ください。
+
+
+### イメージ
+
+それぞれ、`markdownify_full`コマンド実行の一部と、生成されたsummary.mdファイルの一部
+
+
+![](img/rime-test.png)
+
+
+![](img/rime-summary.png)
